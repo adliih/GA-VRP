@@ -1,0 +1,12 @@
+x = randperm(32);
+caps = 100;
+for(i = 1: length (x))
+if (caps < demand(x(i)))
+caps = 100;
+x = [x(1:i) 1 x(i+1:end)];
+end
+caps -= demand(x(i));
+end
+
+% Find Total Cost
+sum(diag(distance([1 x(1:end-1)],[x])))
