@@ -1,4 +1,4 @@
-x = randperm(32);
+
 caps = 100;
 for(i = 1: length (x))
 if (caps < demand(x(i)))
@@ -10,3 +10,134 @@ end
 
 % Find Total Cost
 sum(diag(distance([1 x(1:end-1)],[x])))
+
+
+% Crossover
+point = 3;
+parent_1 = x;
+parent_2 = y;
+temp_1 = parent_2(1, 1:point);
+temp_2 = parent_1(1, 1:point);
+offspring_1 = [temp_1  setdiff(parent_1, temp_1)(randperm(length(parent_1) - point)) ];
+offspring_2 = [temp_2  setdiff(parent_2, temp_2)(randperm(length(parent_1) - point)) ];
+
+% Alur
+tic
+[location demand distance] = load_data();
+population = create_generation(50);
+fitness_val_population = fitness(100, population, demand, distance);
+for(i = 1: 500)
+point = randi(31);
+[parent_1 parent_2] = split_parent(population, fitness_val_population);
+[offsprings] = crossover(parent_1, parent_2, point);
+fitness_val_offsprings = fitness(100, offsprings, demand, distance);
+[next_population next_fitness_val] = choose_next_gen([population;offsprings], [fitness_val_population;fitness_val_offsprings]);
+population = next_population;
+fitness_val_population = next_fitness_val;
+end
+toc
+
+
+% Write File
+% fprintf(myfile, '%d-', population(:));
+% fprintf(myfile, '%10.2f', fitness_val_population);
+% fprintf(myfile, '\n');
+dlmwrite('test.txt', [population, fitness_val_population], 'delimiter', ' - ', 'roffset',1)
+
+
+
+% Testing urut
+[location demand distance] = load_data();
+population = [2:1:32];
+fitness_val = fitness(100, population, demand, distance);
+
+distance(1,2) + distance(2,3) + distance(3,4) + distance(4,5) + distance(5,6) + distance(6,7) + distance(7,1) + distance(1,8) + distance(8,9) + distance(9,10) + distance(10,11) + distance(11,12) + distance(12,13) + distance(13,14) + distance(14,1) + distance(1,15) + distance(15,16) + distance(16,17) + distance(17,18) + distance(18,19) + distance(19,20) + distance(20,1) + distance(1,21) + distance(21,22) + distance(22,23) + distance(23,24) + distance(24,25) + distance(25,26) + distance(26,27) + distance(27,1) + distance(1,28) + distance(28,29) + distance(29,30) + distance(30,31) + distance(31,32) + distance(32,1)
+
+print -djpg graph/figure1.jpg
+
+for(i=1:31)
+fprintf(1, 'distance(%d,%d)\n', i, i+1);
+end
+
+% Save Graph
+figure(1);
+clf;
+plot(record_fitness);
+title('Penurunan Cost Setiap Generasi');
+xlabel('Generasi');
+ylabel('Cost Total');
+filename = sprintf('Graph/Perkembangan Cost [%d, %d, %d].svg', num_population, num_generation, mating_pool_pair, tournament_size, crossover_prob, mutation_prob);
+print(filename);
+
+
+ sum([distance(1, 2)
+distance(2, 3)
+distance(3, 4)
+distance(4, 5)
+distance(5, 6)
+distance(6, 7)
+distance(7, 8)
+distance(8, 1)
+distance(1, 9)
+distance(9, 10)
+distance(10, 11)
+distance(11, 12)
+distance(12, 13)
+distance(13, 14)
+distance(14, 15)
+distance(15, 1)
+distance(1, 16)
+distance(16, 17)
+distance(17, 18)
+distance(18, 19)
+distance(19, 20)
+distance(20, 21)
+distance(21, 1)
+distance(1, 22)
+distance(22, 23)
+distance(23, 24)
+distance(24, 25)
+distance(25, 26)
+distance(26, 27)
+distance(27, 28)
+distance(28, 1)
+distance(1, 29)
+distance(29, 30)
+distance(30, 31)
+distance(31, 32)
+distance(32, 1)
+])
+= 2081.2
+
+sum([distance(1,31) 
+distance(31 ,9) 
+distance(9 ,19) 
+distance(19 ,10) 
+distance(10 ,11) 
+distance(11 ,26) 
+distance(26 ,30) 
+distance(30 ,28) 
+distance(28 ,25) 
+distance(25 ,32) 
+distance(32 ,20) 
+distance(20 ,18) 
+distance(18 ,14) 
+distance(14 ,17) 
+distance(17 ,13) 
+distance(13 ,2) 
+distance(2 ,27) 
+distance(27 ,15) 
+distance(15 ,23) 
+distance(23 ,12) 
+distance(12 ,5) 
+distance(5 ,4) 
+distance(4 ,3) 
+distance(3 ,7) 
+distance(7 ,8) 
+distance(8 ,22) 
+distance(22 ,24) 
+distance(24 ,29) 
+distance(29 ,16) 
+distance(16 ,21) 
+distance(21, 6)
+distance(6, 1)])
