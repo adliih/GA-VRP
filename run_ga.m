@@ -1,6 +1,4 @@
-function [population fitness_val_population i record_fitness] = run_ga(num_population, num_generation, tournament_size, crossover_prob, mutation_prob)
-	graph_path = 'Graph/';
-	mkdir(graph_path);
+function [population fitness_val_population record_fitness] = run_ga(num_population, num_generation, tournament_size, crossover_prob, mutation_prob)
 	[location demand distance] = load_data();
 	population = create_generation(num_population);
 	fitness_val_population = fitness(population, demand, distance);
